@@ -26,11 +26,8 @@ export default function openCvReady(video) {
     try {
       let { getBrightness, getContrast } = watchContrastAndBrightness(cap);
       cap.read(src);
-      console.log(cap);
-      console.log(src);
       if (getBrightness <= 40) {
         brightness = 120;
-        console.log("brightness naik");
       } else {
         brightness = 20;
       }

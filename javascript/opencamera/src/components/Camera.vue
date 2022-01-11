@@ -51,7 +51,7 @@ export default {
                     this.showFirstCamera = false;
                 })
                 .catch(err => {
-                    console.log(err, 'cant');
+                    console.error(err);
                 });               
             }
         },
@@ -73,14 +73,12 @@ export default {
     width: 100%;
     display: flex;
     justify-content: center;
-    background: yellow;
 
     &__bound {
         width: 300px;
         display: flex;
         justify-content: center;
         flex-direction: column;
-        background: red;
         height: 500px;
     }
 
@@ -98,7 +96,6 @@ export default {
     &__snap {
         width: 75px;
         height: 75px;
-        background: yellow;
     }
 }
 </style>
