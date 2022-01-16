@@ -1,7 +1,7 @@
 export default function openCvReady(video) {
   const cv = window.cv;
   video.height = video.clientHeight;
-  video.width = video.clientHeight;
+  video.width = video.clientWidth;
   let src = new cv.Mat(video.clientHeight, video.clientWidth, cv.CV_8UC4);
   let dst = new cv.Mat(video.clientHeight, video.clientWidth, cv.CV_8UC1);
   let cap = new cv.VideoCapture(video);
@@ -32,7 +32,7 @@ export default function openCvReady(video) {
         brightness = 20;
       }
       if (getContrast < 47) {
-        contrast = getContrast + 20;
+        contrast = getContrast + 60;
       } else {
         contrast = 0;
       }
@@ -70,6 +70,7 @@ export default function openCvReady(video) {
 
       cv.imshow("canvasFrame", dst);
       // schedule the next one.
+      console.log("hello");
       let delay = 1000 / FPS - (Date.now() - begin);
       setTimeout(processVideo, delay);
     } catch (err) {

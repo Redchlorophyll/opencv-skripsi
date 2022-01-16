@@ -3,6 +3,7 @@
         <div class="camera__bound">
            <video id="videoCam" class="camera__video" autoplay></video>
            <canvas id="canvasFrame" class="camera__feed"></canvas>
+           <canvas id="canvasModel" class="camera__feed"></canvas>
            <button
             class="camera__snap"
             @click="init"
@@ -11,13 +12,20 @@
             class="camera__snap"
             @click="stopAction"
             >stop</button>
+            <button
+            @click="ModelClicked"
+            >Load Model</button>
         </div>
         
     </div>
+    
 </template>
 
 <script>
 import openCvReady from '@/utils/contrastBrightness';
+import triggerLoadModel from '@/utils/loadModel';
+// import runBlazeModel from '@/utils/loadBlazeModel';
+
 
 export default {
     name: 'Camera',
@@ -25,6 +33,11 @@ export default {
         return {
             stream: false,
             showFirstCamera: true,
+            setModel: null,
+            url: {
+            model:
+                "http://192.168.137.1:8081/model.json",
+            },
         };
     },
     methods: {
@@ -55,6 +68,21 @@ export default {
                 });               
             }
         },
+        ModelClicked() {
+            // const video = document.getElementById('videoCam');
+            this.openCamera();
+            const canvas = {
+                reference: document.getElementById('videoCam'),
+                modelResult: document.getElementById('canvasModel')
+            };
+            // let ctx = canvas.getContext("2d");
+            // let img = canvas.toDataURL("image/jpg");
+            // console.log(img)
+            // console.image(img);
+            triggerLoadModel(canvas);
+            // this.openCamera();
+            // runBlazeModel(canvas);
+        },
     },
     mounted() {
         const plugin = document.createElement('script');
@@ -82,11 +110,11 @@ export default {
         height: 500px;
     }
 
-    &__video {
-        opacity: 0;
-        position: absolute;
-        z-index: -10;
-    }
+    // &__video {
+    //     opacity: 0;
+    //     position: absolute;
+    //     z-index: -10;
+    // }
 
     &__feed {
         background: #171717;

@@ -8,6 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@tensorflow-models/blazeface": "^0.0.7",
+    "@tensorflow/tfjs": "^3.13.0",
+    "@tensorflow/tfjs-converter": "^3.13.0",
     "core-js": "^3.6.5",
     "node-sass": "^4.14.1",
     "opencv4nodejs": "^5.6.0",
