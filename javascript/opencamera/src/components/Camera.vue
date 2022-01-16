@@ -72,7 +72,7 @@ export default {
             // const video = document.getElementById('videoCam');
             this.openCamera();
             const canvas = {
-                reference: document.getElementById('videoCam'),
+                reference: document.getElementById('canvasFrame'),
                 modelResult: document.getElementById('canvasModel')
             };
             // let ctx = canvas.getContext("2d");

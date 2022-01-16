@@ -32,7 +32,7 @@ export default function openCvReady(video) {
         brightness = 20;
       }
       if (getContrast < 47) {
-        contrast = getContrast + 60;
+        contrast = getContrast + 65;
       } else {
         contrast = 0;
       }
