@@ -135,8 +135,4 @@ export default {
         height: 75px;
     }
 }
-
-#canvasModel {
-    width: 700px;
-}
 </style>
