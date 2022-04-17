@@ -1,5 +1,4 @@
 import * as tf from "@tensorflow/tfjs";
-import translation from "@/store/translation";
 // import { loadGraphModel } from "@tensorflow/tfjs-converter";
 
 const url = {
@@ -113,8 +112,6 @@ export const drawRect = (
         x * imgWidth,
         y * imgHeight - 10
       );
-      translation.commit("SET_WORD", labelMap[text]["name"]);
-      console.log("word", translation.state.word);
       console.log(
         labelMap[text]["name"],
         x * imgWidth,

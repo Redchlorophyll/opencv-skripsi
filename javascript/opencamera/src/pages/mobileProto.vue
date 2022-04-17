@@ -1,22 +1,18 @@
 <template>
     <div class="camera">
         <div class="camera__bound">
-           <video id="videoCam" class="camera__video" autoplay></video>
-           <canvas id="canvasFrame" class="camera__feed"></canvas>
-           <canvas id="canvasModel" class="camera__feed"></canvas>
+           <video id="videoCam" class="camera__videos" autoplay></video>
+           <canvas id="canvasFrame" class="camera__feeds"></canvas>
+           <canvas id="canvasModel" class="camera__feeds"></canvas>
            <button
+            ref="submitBtn"
             class="camera__snap"
-            @click="init"
+            @click="btnAction"
             >SNAP</button>
             <button
-            class="camera__snap"
-            @click="stopAction"
-            >stop</button>
-            <button
+            ref="submitBtnModel"
             @click="ModelClicked"
             >Load Model</button>
-            <button
-            @click="downloadImage">Download Frame</button>
         </div>
         
     </div>
@@ -26,11 +22,10 @@
 <script>
 import openCvReady from '@/utils/contrastBrightness';
 import triggerLoadModel from '@/utils/loadModel';
-// import runBlazeModel from '@/utils/loadBlazeModel';
 
 
 export default {
-    name: 'Camera',
+    name: 'MobileProto',
     data() {
         return {
             stream: false,
@@ -44,15 +39,19 @@ export default {
     },
     methods: {
         init() {
-            const video = document.getElementById('videoCam');
-            this.stream = true;
+            console.log('clicked');
+            
             this.openCamera();
-            openCvReady(video);
+            setTimeout(() => {
+                this.$refs.submitBtn.click();
+            }, 2500);
+            setTimeout(() => {
+                this.$refs.submitBtnModel.click();
+            }, 3000);
         },
-        stopAction() {
-            console.log('stopp');
-            this.stream = false;
-            console.log(this.stream);
+        btnAction() {
+            const video = document.getElementById('videoCam');
+            openCvReady(video);
         },
         openCamera() {
             // console.log(cv);
@@ -69,6 +68,7 @@ export default {
                     console.error(err);
                 });               
             }
+           
         },
         ModelClicked() {
             // const video = document.getElementById('videoCam');
@@ -77,21 +77,8 @@ export default {
                 reference: document.getElementById('canvasFrame'),
                 modelResult: document.getElementById('canvasModel')
             };
-            // let ctx = canvas.getContext("2d");
-            // let img = canvas.toDataURL("image/jpg");
-            // console.log(img)
-            // console.image(img);
             triggerLoadModel(canvas);
-            // this.openCamera();
-            // runBlazeModel(canvas);
         },
-        downloadImage() {
-            const frame = document.getElementById('canvasFrame');
-            const dataURL = frame.toDataURL("image/png");
-            const newTab = window.open('about:blank','image from canvas');
-            newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
-
-        }
     },
     mounted() {
         const plugin = document.createElement('script');
@@ -101,6 +88,7 @@ export default {
         );
         plugin.async = true;
         document.head.appendChild(plugin);
+        this.init();
     }
 }
 </script>
@@ -119,24 +107,42 @@ export default {
         height: 500px;
     }
 
-    // &__video {
-    //     opacity: 0;
-    //     position: absolute;
-    //     z-index: -10;
-    // }
+    &__videos {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%; 
+        min-height: 100%;
+        -webkit-appearance: none;
+        transform: rotateY(180deg);
+        z-index: 10;
+    }
 
-    &__feed {
-        background: #171717;
-        box-shadow: 4px 4px 12px 0 rgba(0,0,0,0.25);
+    &__feeds {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%; 
+        min-height: 100%;
+        -webkit-appearance: none;
+        transform: rotateY(180deg);
+        z-index: -10;
+    }
+
+    &__model {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%; 
+        min-height: 100%;
+        -webkit-appearance: none;
+        transform: rotateY(180deg);
+        z-index: -9;
     }
 
     &__snap {
         width: 75px;
         height: 75px;
     }
-}
-
-#canvasModel {
-    width: 700px;
 }
 </style>
